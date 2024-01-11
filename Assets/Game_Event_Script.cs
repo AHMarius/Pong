@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class Game_Event_Script : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Game_Event_Script : MonoBehaviour
     public TextMeshProUGUI ballsText;
     public GameObject StartText;
     public GM_Script GM;
+    public List<GameObject> gameObjects = new List<GameObject>();
     private int score;
 
     private void Update()
@@ -53,5 +55,25 @@ public class Game_Event_Script : MonoBehaviour
     {
         if (!GM.game_state)
             StartText.SetActive(false);
+        if (GM.end_game)
+        {
+            StartText.SetActive(true);
+            foreach (var gmObj in gameObjects)
+            {
+                gmObj.SetActive(false);
+            }
+            StartText.GetComponent<TextMeshProUGUI>().text =
+                "Joc terminat! \n"
+                + "Mingi folosite: "
+                + GM.total_balls.ToString("000")
+                + "\n"
+                + "Upgrade-uri: "
+                + GM.total_powerup.ToString("000")
+                + "\n"
+                + "Scor final: "
+                + score.ToString("000")
+                + "\n"
+                + "Reset - [ESC]";
+        }
     }
 }

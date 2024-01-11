@@ -208,6 +208,12 @@ MonoBehaviour:
   ballsText: {fileID: 554898201}
   StartText: {fileID: 1745185941}
   GM: {fileID: 822080154}
+  gameObjects:
+  - {fileID: 1044037106}
+  - {fileID: 863411539}
+  - {fileID: 50937728}
+  - {fileID: 292442496}
+  - {fileID: 554898199}
 --- !u!114 &131281483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,6 +832,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9bc28c6b7335d9d4f95ce62150943b76, type: 3}
   R_M: {fileID: 863411540}
   game_state: 1
+  end_game: 0
+  total_balls: 1
+  total_powerup: 0
   current_x: 2
 --- !u!4 &822080155
 Transform:
@@ -1460,7 +1469,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 700}
+  m_SizeDelta: {x: 1300, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745185943
 MonoBehaviour:
@@ -1483,9 +1492,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "  Pentru  a incepe apasa orice cheie.\n  Pentru a plasa mai multe mingi
-    apas\u0103 [space].\n\xCEn cazul \xEEn care \xEE\u021Bi pierzi mingea, \u0219i
-    ai r\u0103mas f\u0103r\u0103 alte mingi...ai pierdut (GG) apas\u0103 [esc]\nRestart
-    [r]"
+    apas\u0103 [SPACE].\n\xCEn cazul \xEEn care \xEE\u021Bi pierzi mingea, \u0219i
+    ai r\u0103mas f\u0103r\u0103 alte mingi...ai pierdut (gg) apas\u0103 [ESC]\nRestart
+    [R]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 18b1735522ca77c4ea3003d885d09b42, type: 2}
   m_sharedMaterial: {fileID: -8634754988394444248, guid: 18b1735522ca77c4ea3003d885d09b42, type: 2}
@@ -1512,12 +1521,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 50
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512

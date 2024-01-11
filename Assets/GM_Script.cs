@@ -16,6 +16,8 @@ public class GM_Script : MonoBehaviour
 
     public bool game_state = true;
     public bool end_game = false;
+    public int total_balls = 1;
+    public int total_powerup = 0;
     private string[] powerUps =
     {
         "ExpandPU",
@@ -53,6 +55,7 @@ public class GM_Script : MonoBehaviour
         {
             BBh.SpawnBall(0.5f, RandomPosition());
             allowed_Balls--;
+            total_balls++;
         }
     }
 
@@ -137,6 +140,7 @@ public class GM_Script : MonoBehaviour
     public void TakeEffect(string powerUpName)
     {
         allowed_Balls++;
+        total_powerup++;
         switch (powerUpName)
         {
             case "ExpandPU":
