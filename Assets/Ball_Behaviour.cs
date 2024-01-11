@@ -7,7 +7,7 @@ public class Ball_Behaviour : MonoBehaviour
     public GameObject BallParent;
     public GM_Script G_Manager;
     public Transform Racket;
-    private float ball_speed = 3f;
+    public float ball_speed = 3f;
 
     public void SpawnBall(float timeInterval, Vector3? position = null)
     {

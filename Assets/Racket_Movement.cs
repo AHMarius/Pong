@@ -3,8 +3,8 @@ using UnityEngine;
 public class Racket_Movement : MonoBehaviour
 {
     public float racket_speed_t = 8.6f;
-    public int movement_dir = -1;
-    public int movment_sync = -1;
+    public int movement_dir = 1;
+    public int movment_sync = 1;
 
     private Transform L_Racket_Tr;
     private Transform R_Racket_Tr;

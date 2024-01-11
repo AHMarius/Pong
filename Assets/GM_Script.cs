@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GM_Script : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class GM_Script : MonoBehaviour
     public List<Sprite> powerUp_sprites = new List<Sprite>();
     public Racket_Movement R_M;
 
-    private bool game_state = true;
+    public bool game_state = true;
+    public bool end_game = false;
     private string[] powerUps =
     {
         "ExpandPU",
@@ -23,17 +25,18 @@ public class GM_Script : MonoBehaviour
         "SpeedUpPU",
         "SpeedDownPU",
         "ChangeControlsPU",
-        "UnsyncControlPU"
+        "UnsyncControlsPU"
     };
     private GameObject powerUpTop,
         powerUpBottom;
-    private int current_x = 2;
+    public int current_x = 2;
     private int score_increment = 1;
     private bool change_control = false;
     private bool unsync_control = false;
 
     private void Update()
     {
+        EndGame();
         HandleBallSpawn();
         HandleGameState();
         CheckScoreForPowerUpSpawn();
@@ -51,6 +54,22 @@ public class GM_Script : MonoBehaviour
             BBh.SpawnBall(0.5f, RandomPosition());
             allowed_Balls--;
         }
+    }
+
+    private void Reset()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    private void EndGame()
+    {
+        if (allowed_Balls == 0 && ball_objects.Count == 0)
+            end_game = true;
+        if (Input.GetKeyDown(KeyCode.R))
+            Reset();
+        if (end_game && Input.GetKeyDown(KeyCode.Escape))
+            Reset();
     }
 
     private Vector3 RandomPosition()
@@ -117,6 +136,7 @@ public class GM_Script : MonoBehaviour
 
     public void TakeEffect(string powerUpName)
     {
+        allowed_Balls++;
         switch (powerUpName)
         {
             case "ExpandPU":
@@ -140,7 +160,7 @@ public class GM_Script : MonoBehaviour
             case "ChangeControlsPU":
                 ChangeControlsPowerUp();
                 break;
-            case "UnsyncPU":
+            case "UnsyncControlsPU":
                 UnsyncControlsPowerUp();
                 break;
             default:
@@ -190,10 +210,11 @@ public class GM_Script : MonoBehaviour
             var ballScript = ball.GetComponent<Ball_Script>();
             var currentVelocity = ballScript.Ball_Rb.velocity;
             ballScript.Ball_Rb.velocity = new Vector2(
-                currentVelocity.x + 0.5f,
-                currentVelocity.y + 0.5f
+                currentVelocity.x / 1.5f,
+                currentVelocity.y / 1.5f
             );
         }
+        BBh.ball_speed += 1f;
     }
 
     private void SpeedDownPowerUp()
@@ -203,10 +224,12 @@ public class GM_Script : MonoBehaviour
             var ballScript = ball.GetComponent<Ball_Script>();
             var currentVelocity = ballScript.Ball_Rb.velocity;
             ballScript.Ball_Rb.velocity = new Vector2(
-                Mathf.Max(currentVelocity.x - 0.5f, 0),
-                Mathf.Max(currentVelocity.y - 0.5f, 0)
+                Mathf.Max(currentVelocity.x * 1.5f, 0),
+                Mathf.Max(currentVelocity.y * 1.5f, 0)
             );
         }
+        if (BBh.ball_speed >= 2f)
+            BBh.ball_speed -= 1f;
     }
 
     private void ChangeControlsPowerUp()
